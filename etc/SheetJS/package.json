@@ -1,0 +1,11 @@
+{
+  "name": "sheetjs-benchmark",
+  "version": "1.0.0",
+  "description": "This package used for performance comparison of similar spreadsheets libs",
+  "main": "index.js",
+  "author": "xuri",
+  "license": "ISC",
+  "dependencies": {
+    "xlsx": "0.18.5"
+  }
+}
