@@ -17,7 +17,7 @@ import (
 func benchRowIterator(row, col int) {
 	runtime.GC()
 	startTime := time.Now()
-	f, err := excelize.OpenFile(fmt.Sprintf("SetSheetRow_r%dxc%d.xlsx", row, col))
+	f, err := excelize.OpenFile(fmt.Sprintf("StreamWriter_r%dxc%d.xlsx", row, col))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -29,7 +29,11 @@ func benchRowIterator(row, col int) {
 		return
 	}
 	for rows.Next() {
-		for _, colCell := range rows.Columns() {
+		row, err := rows.Columns()
+		if err != nil {
+			fmt.Println(err)
+		}
+		for _, colCell := range row {
 			_ = colCell
 			c++
 		}
@@ -37,6 +41,13 @@ func benchRowIterator(row, col int) {
 	if c != row*col {
 		fmt.Println("Test Iterator Error")
 		return
+	}
+	if err = rows.Close(); err != nil {
+		fmt.Println(err)
+		return
+	}
+	if err = f.Close(); err != nil {
+		fmt.Println(err)
 	}
 	printBenchmarkInfo(fmt.Sprintf("RowIterator_r%dxc%d.xlsx", row, col), startTime)
 }

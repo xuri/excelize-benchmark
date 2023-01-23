@@ -28,7 +28,28 @@ func benchAddChart(row, col int) {
 	startTime := time.Now()
 	for r := 1; r <= row; r++ {
 		for c := 0; c < col; c++ {
-			if err := f.AddChart("Sheet1", "E1", `{"type":"col3DClustered","series":[{"name":"Sheet1!$A$2","categories":"Sheet1!$B$1:$D$1","values":"Sheet1!$B$2:$D$2"},{"name":"Sheet1!$A$3","categories":"Sheet1!$B$1:$D$1","values":"Sheet1!$B$3:$D$3"},{"name":"Sheet1!$A$4","categories":"Sheet1!$B$1:$D$1","values":"Sheet1!$B$4:$D$4"}],"title":{"name":"Fruit 3D Clustered Column Chart"}}`); err != nil {
+			if err := f.AddChart("Sheet1", "E1", &excelize.Chart{
+				Type: "col3DClustered",
+				Series: []excelize.ChartSeries{
+					{
+						Name:       "Sheet1!$A$2",
+						Categories: "Sheet1!$B$1:$D$1",
+						Values:     "Sheet1!$B$2:$D$2",
+					},
+					{
+						Name:       "Sheet1!$A$3",
+						Categories: "Sheet1!$B$1:$D$1",
+						Values:     "Sheet1!$B$3:$D$3",
+					},
+					{
+						Name:       "Sheet1!$A$4",
+						Categories: "Sheet1!$B$1:$D$1",
+						Values:     "Sheet1!$B$4:$D$4",
+					}},
+				Title: excelize.ChartTitle{
+					Name: "Fruit 3D Clustered Column Chart",
+				},
+			}); err != nil {
 				fmt.Println(err)
 				return
 			}

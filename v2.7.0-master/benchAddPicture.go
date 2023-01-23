@@ -19,8 +19,13 @@ func benchAddPicture(row, col int) {
 	startTime, f := time.Now(), excelize.NewFile()
 	for r := 1; r <= row; r++ {
 		for c := 1; c <= col; c++ {
+			cell, err := excelize.CoordinatesToCellName(c, r)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
 			// Insert a picture.
-			if err := f.AddPicture("Sheet1", fmt.Sprintf("%s%d", excelize.ToAlphaString(c), r), "excel.jpg", ""); err != nil {
+			if err := f.AddPicture("Sheet1", cell, "excel.jpg", nil); err != nil {
 				fmt.Println(err)
 				return
 			}
