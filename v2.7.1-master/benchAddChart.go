@@ -16,7 +16,12 @@ import (
 
 func benchAddChart(row, col int) {
 	runtime.GC()
-	f := excelize.NewFile()
+	startTime, f := time.Now(), excelize.NewFile()
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
 	categories := map[string]string{"A2": "Small", "A3": "Normal", "A4": "Large", "B1": "Apple", "C1": "Orange", "D1": "Pear"}
 	values := map[string]int{"B2": 2, "C2": 3, "D2": 3, "B3": 5, "C3": 2, "D3": 4, "B4": 6, "C4": 7, "D4": 8}
 	for k, v := range categories {
@@ -25,11 +30,10 @@ func benchAddChart(row, col int) {
 	for k, v := range values {
 		f.SetCellValue("Sheet1", k, v)
 	}
-	startTime := time.Now()
 	for r := 1; r <= row; r++ {
 		for c := 0; c < col; c++ {
 			if err := f.AddChart("Sheet1", "E1", &excelize.Chart{
-				Type: "col3DClustered",
+				Type: excelize.Col3DClustered,
 				Series: []excelize.ChartSeries{
 					{
 						Name:       "Sheet1!$A$2",

@@ -14,28 +14,23 @@ import (
 	"github.com/xuri/excelize"
 )
 
-func benchSetSheetRow(row, col, cellLen int) {
+func benchMergeCell(n int) {
 	runtime.GC()
 	startTime, f := time.Now(), excelize.NewFile()
-	for r := 1; r <= row; r++ {
-		row := make([]interface{}, col)
-		for c := 0; c < col; c++ {
-			row[c] = randStringBytes(cellLen)
-		}
-		cell, err := excelize.CoordinatesToCellName(1, r)
-		if err != nil {
+	defer func() {
+		if err := f.Close(); err != nil {
 			fmt.Println(err)
-			return
 		}
-		if err = f.SetSheetRow("Sheet1", cell, &row); err != nil {
+	}()
+	for r := 1; r <= n; r++ {
+		if err := f.MergeCell("Sheet1", fmt.Sprintf("A%d", r), fmt.Sprintf("B%d", r)); err != nil {
 			fmt.Println(err)
 			return
 		}
 	}
-	fileName := fmt.Sprintf("SetSheetRow_r%dxc%d.xlsx", row, col)
+	fileName := fmt.Sprintf("MergeCell_r%d.xlsx", n)
 	if err := f.SaveAs(fileName); err != nil {
 		fmt.Println(err)
-		return
 	}
 	printBenchmarkInfo(fileName, startTime)
 }

@@ -41,5 +41,16 @@ bin=v1.3.0
 ./$bin -func=RowIterator -rows=25600 -cols=50
 ./$bin -func=RowIterator -rows=51200 -cols=50
 ./$bin -func=RowIterator -rows=102400 -cols=50
+# GetRows
+./$bin -func=GetRows -rows=200 -cols=50
+./$bin -func=GetRows -rows=400 -cols=50
+./$bin -func=GetRows -rows=800 -cols=50
+./$bin -func=GetRows -rows=1600 -cols=50
+./$bin -func=GetRows -rows=3200 -cols=50
+./$bin -func=GetRows -rows=6400 -cols=50
+./$bin -func=GetRows -rows=12800 -cols=50
+./$bin -func=GetRows -rows=25600 -cols=50
+./$bin -func=GetRows -rows=51200 -cols=50
+./$bin -func=GetRows -rows=102400 -cols=50
 # Cleanup
 rm -rf *.xlsx

@@ -14,14 +14,14 @@ import (
 	"github.com/xuri/excelize"
 )
 
-func benchStreamWriter(row, col, cellLen int) {
+func benchSetSheetRow(row, col, cellLen int) {
 	runtime.GC()
 	startTime, f := time.Now(), excelize.NewFile()
-	sw, err := f.NewStreamWriter("Sheet1")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
 	for r := 1; r <= row; r++ {
 		row := make([]interface{}, col)
 		for c := 0; c < col; c++ {
@@ -32,17 +32,13 @@ func benchStreamWriter(row, col, cellLen int) {
 			fmt.Println(err)
 			return
 		}
-		if err = sw.SetRow(cell, row); err != nil {
+		if err = f.SetSheetRow("Sheet1", cell, &row); err != nil {
 			fmt.Println(err)
 			return
 		}
 	}
-	if err = sw.Flush(); err != nil {
-		fmt.Println(err)
-		return
-	}
-	fileName := fmt.Sprintf("StreamWriter_r%dxc%d.xlsx", row, col)
-	if err = f.SaveAs(fileName); err != nil {
+	fileName := fmt.Sprintf("SetSheetRow_r%dxc%d.xlsx", row, col)
+	if err := f.SaveAs(fileName); err != nil {
 		fmt.Println(err)
 		return
 	}

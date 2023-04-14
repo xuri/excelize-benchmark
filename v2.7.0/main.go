@@ -49,6 +49,8 @@ func main() {
 		benchAddPicture(rowsFlag, colsFlag)
 	case "RowIterator":
 		benchRowIterator(rowsFlag, colsFlag)
+	case "GetRows":
+		benchGetRows(rowsFlag, colsFlag)
 	case "MergeCell":
 		benchMergeCell(numFlag)
 	default:

@@ -1,6 +1,6 @@
 #!/bin/bash
 GO111MODULE=off go build
-bin=v1.4.x
+bin=v2.7.0
 # SetSheetRow
 ./$bin -func=SetSheetRow -rows=200 -cols=50 -n=6
 ./$bin -func=SetSheetRow -rows=400 -cols=50 -n=6
@@ -12,6 +12,17 @@ bin=v1.4.x
 ./$bin -func=SetSheetRow -rows=25600 -cols=50 -n=6
 ./$bin -func=SetSheetRow -rows=51200 -cols=50 -n=6
 ./$bin -func=SetSheetRow -rows=102400 -cols=50 -n=6
+# StreamWriter
+./$bin -func=StreamWriter -rows=200 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=400 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=800 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=1600 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=3200 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=6400 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=12800 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=25600 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=51200 -cols=50 -n=6
+./$bin -func=StreamWriter -rows=102400 -cols=50 -n=6
 # AddChart
 ./$bin -func=AddChart -rows=200 -cols=50
 # SetCellHyperLink

@@ -14,16 +14,29 @@ import (
 	"github.com/xuri/excelize"
 )
 
-func benchMergeCell(n int) {
+func benchSetCellHyperLink(row, col int) {
 	runtime.GC()
 	startTime, f := time.Now(), excelize.NewFile()
-	for r := 1; r <= n; r++ {
-		if err := f.MergeCell("Sheet1", fmt.Sprintf("A%d", r), fmt.Sprintf("B%d", r)); err != nil {
+	defer func() {
+		if err := f.Close(); err != nil {
 			fmt.Println(err)
-			return
+		}
+	}()
+	for r := 1; r <= row; r++ {
+		for c := 1; c <= col; c++ {
+			cell, err := excelize.CoordinatesToCellName(c, r)
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+			if err := f.SetCellHyperLink("Sheet1", cell,
+				"https://github.com/xuri/excelize", "External"); err != nil {
+				fmt.Println(err)
+				return
+			}
 		}
 	}
-	fileName := fmt.Sprintf("MergeCell_r%d.xlsx", n)
+	fileName := fmt.Sprintf("SetCellHyperLink_r%dxc%d.xlsx", row, col)
 	if err := f.SaveAs(fileName); err != nil {
 		fmt.Println(err)
 	}

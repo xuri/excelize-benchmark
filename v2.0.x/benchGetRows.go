@@ -14,40 +14,29 @@ import (
 	"github.com/xuri/excelize"
 )
 
-func benchRowIterator(row, col int) {
+func benchGetRows(row, col int) {
 	runtime.GC()
 	startTime := time.Now()
-	f, err := excelize.OpenFile(fmt.Sprintf("StreamWriter_r%dxc%d.xlsx", row, col))
+	f, err := excelize.OpenFile(fmt.Sprintf("SetSheetRow_r%dxc%d.xlsx", row, col))
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	c := 0
-	rows, err := f.Rows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	for rows.Next() {
-		row, err := rows.Columns()
-		if err != nil {
-			fmt.Println(err)
-		}
-		for _, colCell := range row {
+	for _, r := range rows {
+		for _, colCell := range r {
 			_ = colCell
 			c++
 		}
 	}
 	if c != row*col {
-		fmt.Println("Test Iterator Error")
+		fmt.Println("Test GetRows Error", c, row*col)
 		return
 	}
-	if err = rows.Close(); err != nil {
-		fmt.Println(err)
-		return
-	}
-	if err = f.Close(); err != nil {
-		fmt.Println(err)
-	}
-	printBenchmarkInfo(fmt.Sprintf("RowIterator_r%dxc%d.xlsx", row, col), startTime)
+	printBenchmarkInfo(fmt.Sprintf("GetRows_r%dxc%d.xlsx", row, col), startTime)
 }

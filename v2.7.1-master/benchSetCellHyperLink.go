@@ -17,6 +17,11 @@ import (
 func benchSetCellHyperLink(row, col int) {
 	runtime.GC()
 	startTime, f := time.Now(), excelize.NewFile()
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Println(err)
+		}
+	}()
 	for r := 1; r <= row; r++ {
 		for c := 1; c <= col; c++ {
 			cell, err := excelize.CoordinatesToCellName(c, r)
