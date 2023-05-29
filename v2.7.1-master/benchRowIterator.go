@@ -51,8 +51,5 @@ func benchRowIterator(row, col int) {
 		fmt.Println(err)
 		return
 	}
-	if err = f.Close(); err != nil {
-		fmt.Println(err)
-	}
 	printBenchmarkInfo(fmt.Sprintf("RowIterator_r%dxc%d.xlsx", row, col), startTime)
 }
