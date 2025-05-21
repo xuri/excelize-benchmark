@@ -1,4 +1,4 @@
-// Copyright 2021-2023 The excelize Authors. All rights reserved. Use of
+// Copyright 2021-2025 The excelize Authors. All rights reserved. Use of
 // this source code is governed by a BSD-style license.
 //
 // This is a benchmark script for the Go language Spreadsheet (Excel / XLSX)
@@ -11,7 +11,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/xuri/excelize"
+	"github.com/xuri/excelize/v2"
 )
 
 func benchRowIterator(row, col int) {

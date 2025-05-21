@@ -1,5 +1,5 @@
 #!/bin/bash
-GO111MODULE=off go build
+go build
 bin=v2.8.0-master
 # SetSheetRow
 ./$bin -func=SetSheetRow -rows=200 -cols=50 -n=6
