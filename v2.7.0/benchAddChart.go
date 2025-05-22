@@ -11,7 +11,7 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/xuri/excelize"
+	"github.com/xuri/excelize/v2"
 )
 
 func benchAddChart(row, col int) {
