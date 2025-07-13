@@ -1,0 +1,2 @@
+psutil==7.0.0
+XlsxWriter==3.2.3

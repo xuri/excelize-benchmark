@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/unidoc/unioffice/spreadsheet"
+	"github.com/unidoc/unioffice/v2/spreadsheet"
 )
 
 func init() {
@@ -18,9 +18,9 @@ func main() {
 	startTime := time.Now()
 	ss := spreadsheet.New()
 	sheet := ss.AddSheet()
-	for r := 0; r < 102400; r++ {
+	for range 102400 {
 		row := sheet.AddRow()
-		for c := 0; c < 50; c++ {
+		for range 50 {
 			cell := row.AddCell()
 			cell.SetString(RandStringBytes(6))
 		}

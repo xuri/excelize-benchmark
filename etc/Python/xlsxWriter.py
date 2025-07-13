@@ -1,7 +1,6 @@
 import xlsxwriter
 import time
-import sys
-from guppy import hpy
+import psutil
 import random
 import string
 
@@ -9,8 +8,8 @@ def randomString(stringLength=6):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
 
-hp = hpy()
-print hp.heap()
+p = psutil.Process()
+print(p.memory_info())
 
 start_time = time.time()
 
@@ -24,4 +23,4 @@ for col in range (0, 50):
 workbook.close()
 
 print("--- %s seconds ---" % (time.time() - start_time))
-print hp.heap()
+print(p.memory_info())

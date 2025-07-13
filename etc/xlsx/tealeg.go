@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/tealeg/xlsx"
+	"github.com/tealeg/xlsx/v3"
 )
 
 func init() {
@@ -22,9 +22,9 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	for i := 0; i < 102400; i++ {
+	for range 102400 {
 		row := sheet.AddRow()
-		for i := 0; i < 50; i++ {
+		for range 50 {
 			cell := row.AddCell()
 			cell.SetString(RandStringBytes(6))
 		}
