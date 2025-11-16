@@ -63,5 +63,11 @@ bin=v2.8.0-master
 ./$bin -func=GetRows -rows=25600 -cols=50
 ./$bin -func=GetRows -rows=51200 -cols=50
 ./$bin -func=GetRows -rows=102400 -cols=50
+# AddComment
+./$bin -func=AddComment -rows=200 -cols=50 -n=6
+./$bin -func=AddComment -rows=400 -cols=50 -n=6
+./$bin -func=AddComment -rows=800 -cols=50 -n=6
+./$bin -func=AddComment -rows=1600 -cols=50 -n=6
+./$bin -func=AddComment -rows=3200 -cols=50 -n=6
 # Cleanup
 rm -rf *.xlsx

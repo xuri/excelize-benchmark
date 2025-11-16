@@ -37,22 +37,24 @@ func main() {
 		return
 	}
 	switch funcFlag {
+	case "AddChart":
+		benchAddChart(rowsFlag, colsFlag)
+	case "AddComment":
+		benchAddComment(rowsFlag, colsFlag, numFlag)
+	case "AddPicture":
+		benchAddPicture(rowsFlag, colsFlag)
+	case "GetRows":
+		benchGetRows(rowsFlag, colsFlag)
+	case "RowIterator":
+		benchRowIterator(rowsFlag, colsFlag)
+	case "MergeCell":
+		benchMergeCell(numFlag)
+	case "SetCellHyperLink":
+		benchSetCellHyperLink(rowsFlag, colsFlag)
 	case "SetSheetRow":
 		benchSetSheetRow(rowsFlag, colsFlag, numFlag)
 	case "StreamWriter":
 		benchStreamWriter(rowsFlag, colsFlag, numFlag)
-	case "AddChart":
-		benchAddChart(rowsFlag, colsFlag)
-	case "SetCellHyperLink":
-		benchSetCellHyperLink(rowsFlag, colsFlag)
-	case "AddPicture":
-		benchAddPicture(rowsFlag, colsFlag)
-	case "RowIterator":
-		benchRowIterator(rowsFlag, colsFlag)
-	case "GetRows":
-		benchGetRows(rowsFlag, colsFlag)
-	case "MergeCell":
-		benchMergeCell(numFlag)
 	default:
 		fmt.Println("unsupport benchmark function")
 	}

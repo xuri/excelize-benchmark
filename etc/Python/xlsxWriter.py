@@ -13,7 +13,7 @@ print(p.memory_info())
 
 start_time = time.time()
 
-workbook = xlsxwriter.Workbook('xlsxWriter.xlsx')
+workbook = xlsxwriter.Workbook('xlsxWriter.xlsx', options={"constant_memory": True})
 worksheet = workbook.add_worksheet()
 
 for col in range (0, 50):
