@@ -1,6 +1,6 @@
 #!/bin/bash
 go build
-bin=v2.8.0-master
+bin=v2.8.0-2.10.1
 # SetSheetRow
 ./$bin -func=SetSheetRow -rows=200 -cols=50 -n=6
 ./$bin -func=SetSheetRow -rows=400 -cols=50 -n=6
