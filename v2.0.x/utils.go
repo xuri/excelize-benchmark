@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"math/rand"
 	"runtime"
-	"syscall"
 	"time"
 )
 
@@ -25,12 +24,10 @@ func randStringBytes(n int) string {
 
 func printBenchmarkInfo(fn string, startTime time.Time) {
 	var memStats runtime.MemStats
-	var rusage syscall.Rusage
 	var bToMb = func(b uint64) uint64 {
 		return b / 1024 / 1024
 	}
 	runtime.ReadMemStats(&memStats)
-	syscall.Getrusage(syscall.RUSAGE_SELF, &rusage)
 	fmt.Printf("Func: %s \tRSS = %v MB\tAlloc = %v MB\tTotalAlloc = %v MB\tSys = %v MB\tNumGC = %v \tCost = %s\n",
-		fn, bToMb(uint64(rusage.Maxrss)), bToMb(memStats.Alloc), bToMb(memStats.TotalAlloc), bToMb(memStats.Sys), memStats.NumGC, time.Since(startTime))
+		fn, bToMb(maxRSS()), bToMb(memStats.Alloc), bToMb(memStats.TotalAlloc), bToMb(memStats.Sys), memStats.NumGC, time.Since(startTime))
 }
